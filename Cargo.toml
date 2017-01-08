@@ -2,9 +2,9 @@
 name = "avec"
 version = "0.1.0"
 authors = ["Dennis Möhlmann <dmo479@gmail.com>"]
-description = "Atomic Vector for concurrent reads / writes"
-#documentation = "https://sinesc.github.io/doc/radiant_rs/"
-#repository = "https://github.com/sinesc/radiant-rs.git"
+description = "[WIP, keep away] Atomic Vector for concurrent reads / writes"
+documentation = "https://sinesc.github.io/doc/avec/"
+repository = "https://github.com/sinesc/avec.git"
 license = "MIT"
 
 [dependencies]
