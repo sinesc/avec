@@ -4,8 +4,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex};
 use std::ops::{Deref, DerefMut};
 use std::cell::UnsafeCell;
-use std::ptr;
-use std::cmp;
+use std::{fmt, ptr, cmp};
 
 /// Result of AVec::get(). While this reference is valid, the associated AVec will panic on
 /// concurrent writes.
@@ -66,12 +65,13 @@ impl<'a, T> AVecMapGuard<'a, T> {
     }
 
     /// Sets an element within the mapped ranged of 0 <= index < size().
-    pub fn set(self: &Self, index: usize, value: T) {
+    pub fn set(self: &Self, index: usize, value: T) -> &Self {
         if index < self.size {
             self.owner.write(self.start + index, value);
         } else {
             panic!("index out of bounds");
         }
+        self
     }
 }
 
@@ -278,5 +278,13 @@ impl<T> AVec<T> {
     /// End a write
     fn end_write(self: &Self) {
         self.writers.fetch_sub(1, Ordering::SeqCst);
+    }
+}
+
+/// Provides debug formatting for T that implement fmt::Debug
+impl<T> fmt::Debug for AVec<T> where T: fmt::Debug {
+    fn fmt(self: &Self, f: &mut fmt::Formatter) -> fmt::Result {
+        let data = self.get();
+        write!(f, "AVec{:?}", data.deref())
     }
 }
