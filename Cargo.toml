@@ -1,0 +1,19 @@
+[package]
+name = "avec"
+version = "0.1.0"
+authors = ["Dennis Möhlmann <dmo479@gmail.com>"]
+description = "Atomic Vector for concurrent reads / writes"
+#documentation = "https://sinesc.github.io/doc/radiant_rs/"
+#repository = "https://github.com/sinesc/radiant-rs.git"
+license = "MIT"
+
+[dependencies]
+
+[lib]
+name = "avec"
+path = "src/lib.rs"
+
+[[bin]]
+doc = false
+name = "demo"
+path = "src/main.rs"
