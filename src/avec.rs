@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex};
 use std::ops::{Deref, DerefMut};
@@ -151,7 +149,7 @@ impl<T> AVec<T> {
         self.insert.load(Ordering::Relaxed)
     }
 
-    /// Grow vector by given number of elements.
+    /// Grow vector to given number of elements. This is a blocking operation.
     pub fn grow(self: &Self, required_capacity: usize) {
         let mut guard = self.grow.lock().unwrap();
         let capacity = self.capacity();
